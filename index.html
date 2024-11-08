@@ -96,5 +96,62 @@
     </div>
   </div>
 </div>
+<script>
+  // Selection of DOM elements
+  const form = document.querySelector(`form`);
+  const firstNameArea = document.getElementById(`first-name`);
+  const lastNameArea = document.getElementById(`last-name`);
+  const commentArea = document.getElementById(`message`);
+  const errorMessage = document.getElementById(`error-message`);
+  const commentList = document.getElementById(`comment-list`);
+
+    
+  // Create form submission event without reloading the page
+  form.addEventListener(`submit` , 
+  function submission (event) {
+    event.preventDefault();
+
+          // Retrieving the fields values
+          const firstName = firstNameArea.value.trim();
+          const lastName = lastNameArea.value.trim();
+          const comment = commentArea.value.trim();
+
+            // Checking the validity of the fields
+            if (firstName === "" || lastName === "" || comment === "") {
+
+            // Show error message
+              errorMessage.style.display = `block`;
+            return;
+            }
+            else {
+
+            // Hide error message
+            errorMessage.style.display = `none`;
+            }
+             
+            // Add new comment
+            const addNewComment = newComment(firstName, lastName, comment);
+            commentList.appendChild(addNewComment);
+
+            // Reset comment form
+            form.reset();
+  });
+
+  // Creation of a new comment
+  function newComment(firstName , lastName , comment) {
+    const newCommentDiv = document.createElement(`div`);
+      newCommentDiv.classList.add(`flex` , `space-x-4` , `text-sm` , `text-gray-500`);
+              
+      newCommentDiv.innerHTML = 
+        `<div class="flex-1 py-10 border-t border-gray-200">
+          <h3 class="font-medium text-gray-900">${firstName} ${lastName}</h3>
+            <div class="prose prose-sm mt-4 max-w-none text-gray-500">
+              <p>${comment}</p>
+            </div>
+        </div>`;
+      return newCommentDiv;
+  };
+
+</script>
 </body>
 </html>
